@@ -1,0 +1,85 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <UserSecretsId>cloudscribe_identity_demo-753C58C9-E136-463E-8A49-58500A5A317A</UserSecretsId>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+  </PropertyGroup>
+
+   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <NoWarn>1701;1702;0436</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <NoWarn>1701;1702;0436</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Update="wwwroot\**\*;navigation.xml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </None>
+
+    <Content Remove="appsettings.Development.json" CopyToPublishDirectory="Never" />
+    <Content Include="appsettings.Development.json" CopyToPublishDirectory="Never" />
+    
+    <Content Include="sitefiles\**\wwwroot\**" CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="SharedThemes\**\wwwroot\**" CopyToPublishDirectory="PreserveNewest" />
+
+  </ItemGroup>
+
+  <ItemGroup Label="Package References">
+
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.0.0" />
+
+    <PackageReference Include="cloudscribe.Core.Web" Version="6.0.*" />
+    <PackageReference Include="cloudscribe.Core.CompiledViews.Bootstrap5" Version="6.0.*" />
+    <PackageReference Include="cloudscribe.Web.StaticFiles" Version="6.0.*" />
+    
+    <!--<PackageReference Include="cloudscribe.Core.Models" Version="5.0.*" />  --><!-- to resolve downgrade warnings only: remove at v6 -->
+    
+    <PackageReference Include="cloudscribe.Core.Storage.NoDb" Version="6.0.*" />
+    
+    <PackageReference Include="cloudscribe.Core.SimpleContent" Version="6.0.*" />
+    <PackageReference Include="cloudscribe.SimpleContent.Web" Version="6.0.*" />
+    <PackageReference Include="cloudscribe.Core.SimpleContent.CompiledViews.Bootstrap5" Version="6.0.*" />
+    <PackageReference Include="cloudscribe.SimpleContent.CompiledViews.Bootstrap5" Version="6.0.*" />
+    <PackageReference Include="cloudscribe.SimpleContent.MetaWeblog" Version="6.0.*" />
+    <PackageReference Include="cloudscribe.SimpleContent.Syndication" Version="6.0.*" />
+    <PackageReference Include="cloudscribe.SimpleContent.ContentTemplates.Bootstrap5" Version="6.0.*" />
+    
+    <!--<PackageReference Include="cloudscribe.SimpleContent.Models" Version="5.5.*" /> --><!-- to resolve downgrade warnings only: remove at v6 -->
+    
+    <PackageReference Include="cloudscribe.SimpleContent.Storage.NoDb" Version="6.0.*" />
+
+    <PackageReference Include="cloudscribe.Logging.Web" Version="6.0.*" />
+    <PackageReference Include="cloudscribe.Logging.NoDb" Version="6.0.*" />
+
+    <PackageReference Include="cloudscribe.Core.IdentityServerIntegration" Version="6.0.*" />
+    <PackageReference Include="cloudscribe.IdentityServerIntegration.CompiledViews.Bootstrap5" Version="6.0.*" />
+    <PackageReference Include="cloudscribe.Core.IdentityServer.NoDb" Version="6.0.*" />
+
+
+
+    <PackageReference Include="cloudscribe.Web.Localization" Version="6.0.*" />
+    
+
+    <PackageReference Include="cloudscribe.DynamicPolicy.Web.Mvc" Version="6.0.*" />
+    <PackageReference Include="cloudscribe.DynamicPolicy.Web.Views.Bootstrap5" Version="6.0.*" />
+    <PackageReference Include="cloudscribe.DynamicPolicy.CoreIntegration" Version="6.0.*" />
+    <PackageReference Include="cloudscribe.DynamicPolicy.Storage.NoDb" Version="6.0.*" />
+
+
+
+
+
+
+
+    
+    
+  </ItemGroup>
+
+  
+
+</Project>

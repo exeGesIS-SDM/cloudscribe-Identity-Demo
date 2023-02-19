@@ -1,2 +1,3 @@
-# cloudscribe_identity_demo
+# cloudscribe Identity Server demo  
+A NoDB instance of cloudscribe Core with Identity Server  
  

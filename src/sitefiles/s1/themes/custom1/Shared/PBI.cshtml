@@ -1,0 +1,73 @@
+﻿@inject ISiteContextResolver siteResolver
+@inject ICoreThemeHelper themeHelper
+@{
+    var Tenant = await siteResolver.ResolveSite(Context.Request.Host.Host, Context.Request.Path);
+    var siteRoot = "";
+    if (!string.IsNullOrWhiteSpace(Tenant.SiteFolderName)) { siteRoot = "/" + Tenant.SiteFolderName; }
+    var isIE = Context.Request.Headers["User-Agent"].ToString().Contains("Trident");
+    var ieBodyClass = isIE ? "IE" : "";
+}
+<!DOCTYPE html>
+<html lang="@CultureInfo.CurrentUICulture.Name">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"] - @(Tenant?.SiteName ?? "Sample")</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    @RenderSection("Meta", required: false)
+
+    @if (isIE)
+    {
+        <link rel="stylesheet" href="~/css/ie11.css" />
+    }
+    
+    <base href="@Context.Request.Path" />
+</head>
+<body>
+    
+     @RenderBody()
+
+    <footer class="sticky-bottom border pt-2 h-100">
+        <div class="w-100 text-center">
+            <partial name="SiteFooterPartial" />
+        </div>
+        <div class="d-flex flex-wrap flex-grow justify-content-center">
+            <div class="p-2">
+            <ul class="list-unstyled d-flex flex-wrap">
+                <li class=" me-2">
+                    <a class="text-nowrap" href="@siteRoot/sitemap">Site Map</a>
+                </li>
+                @if (Tenant != null && !string.IsNullOrWhiteSpace(Tenant.PrivacyPolicy))
+                {
+                    <li class="border-left ps-2 me-2">
+                        <a asp-controller="Privacy" asp-action="Index">Privacy Policy</a>
+                    </li>
+                }
+                <li class="border-left ps-2 me-2">
+                    @* you are free to remove the powered by cloudscribe link but we appreciate it if you choose to keep it! *@
+                    <a class="text-nowrap" target="_blank" href="https://www.cloudscribe.com/?utm_source=@Context.Request.Host.Value&amp;utm_medium=referral&amp;utm_campaign=poweredbycloudscribe">Powered by cloudscribe</a>
+                </li>
+            </ul>
+        </div>
+        <div class="ps-sm-2  text-center w-100"><span class="text-nowrap">Copyright &copy; @DateTime.Now.Year</span><span class="d-none d-sm-inline"> - </span><span> @(Tenant?.SiteName ?? "Sample")</span></div>
+        <partial name="_CookieConsentRevokePartial" />
+
+        </div>
+        
+    </footer>
+    @RenderSection("Toolbar", required: false)
+    <environment names="Development">
+        <script src="~/js/jquery.min.js" cs-resolve-theme-resource="true" cs-tenant="@Tenant"></script>
+        <script src="~/js/bootstrap.bundle.js" cs-resolve-theme-resource="true" cs-tenant="@Tenant"></script>
+        <script src="~/cr/js/bs4.smartmenus.min.js"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <script src="~/js/jquery.min.js" cs-resolve-theme-resource="true" cs-tenant="@Tenant"></script>
+        <script src="~/js/bootstrap.bundle.min.js" cs-resolve-theme-resource="true" cs-tenant="@Tenant"></script>
+        <script src="~/cr/js/bs4.smartmenus.min.js"></script>
+    </environment>
+    @RenderSection("Bottom", required: false)
+    @RenderSection("Scripts", required: false)
+    @Html.RenderResources("js") @*render any js resources declared via helpers in partial views etc*@
+    <add-this profile-id="@Tenant.AddThisDotComUsername" async></add-this>
+</body>
+</html>

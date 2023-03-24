@@ -1,0 +1,1 @@
+{"Id":"199592bc-617c-4a33-bca8-499aaea4f40f","TenantId":"739fa6f5-c3fc-40ce-bf5c-100de81bc819","Name":"PowerBiAccessPolicy","RequireAuthenticatedUser":false,"RequiredUserName":null,"AllowedRoles":["Administrators"],"AuthenticationSchemes":[],"RequiredClaims":[],"Notes":null}

@@ -69,6 +69,8 @@
     <PackageReference Include="cloudscribe.DynamicPolicy.Web.Views.Bootstrap5" Version="6.0.*" />
     <PackageReference Include="cloudscribe.DynamicPolicy.CoreIntegration" Version="6.0.*" />
     <PackageReference Include="cloudscribe.DynamicPolicy.Storage.NoDb" Version="6.0.*" />
+    <PackageReference Include="Microsoft.Identity.Client" Version="4.52.0" />
+    <PackageReference Include="Microsoft.PowerBI.Api" Version="4.13.0" />
 
 
 

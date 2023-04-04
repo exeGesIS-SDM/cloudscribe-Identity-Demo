@@ -18,6 +18,7 @@
         "merge-stream": "^2.0.0",
         "smartmenus": "^1.1.1",
         "smartmenus-bootstrap-4": "^0.1.0",
-        "sass": "^1.53.0"
+        "sass": "^1.53.0",
+        "powerbi-client": "2.22.2"
     }
 }

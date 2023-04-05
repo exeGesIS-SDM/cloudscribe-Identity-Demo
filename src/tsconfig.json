@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "noImplicitAny": false,
+    "allowJs": true,
+    "noEmitOnError": true,
+    "removeComments": false,
+    "sourceMap": true,
+    "moduleResolution": "node",    
+    "target": "es5",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "lib": [
+      "es2016",
+      "dom",
+      "es5"
+    ]
+    //"outDir": "Resources"
+    //"types": [ "reflect-metadata" ]
+    //"lib": [ "es2015", "es2015.iterable", "dom", "dom.iterable" ]
+  },
+  "compileOnSave": false,
+  "include": ["Scripts"],
+  "exclude": [
+    "node_modules",
+    "Resources",
+    "bin",
+    "obj",
+    "./*.config.js"
+  ]
+}

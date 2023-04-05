@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
-//using Microsoft.AspNetCore.Authorization;
 
 namespace cloudscribe_identity_demo.Controllers
 {
@@ -13,8 +12,8 @@ namespace cloudscribe_identity_demo.Controllers
         [HttpGet]
         public async Task<EmbedInfo> Get()
         {
-            Guid workspaceId = Guid.Parse("81f02fe5-c972-4a69-ab29-b13fbf0a12e3");  // officer >> open cases ?
-            Guid reportId = Guid.Parse("dcdca343-2314-433e-803c-276de8eb661f");
+            Guid workspaceId = Guid.Parse("2ba8e729-5be5-4d5d-bfb1-8f591e6cf1cf");  
+            Guid reportId = Guid.Parse("c81a9dc0-4df1-469d-8333-9852d18360c6");
 
             var embedInfo = await Embedder.GetEmbedInfo(workspaceId, reportId);
             return embedInfo;

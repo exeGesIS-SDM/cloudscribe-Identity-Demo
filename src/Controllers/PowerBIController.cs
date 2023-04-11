@@ -13,5 +13,17 @@ namespace cloudscribe_identity_demo.Controllers
         {   
             return View();
         }
+
+
+        //[Authorize(Policy = "PowerBiAccessPolicy")]
+        [HttpGet]
+        [Route("powerbiEmbedDemo")]
+        [Route("{sitefolder:sitefolder}/powerbiEmbedDemo")]
+        public IActionResult PowerbiEmbedDemo()
+        {
+            return View("EmbedDemo");
+        }
+
+
     }
 }

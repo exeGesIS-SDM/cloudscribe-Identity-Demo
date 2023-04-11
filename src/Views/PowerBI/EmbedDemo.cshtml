@@ -1,0 +1,13 @@
+﻿@inject ISiteContextResolver siteResolver
+
+@{
+    Layout = "_Layout_PBIEmbed";
+
+    ViewData["Title"] = "Power BI Embed Demo";
+
+    var Tenant = await siteResolver.ResolveSite(Context.Request.Host.Host, Context.Request.Path);
+}
+
+
+<h1>Power BI Embedded Test</h1>
+<div id="reportContainer" style="width: 80%; height: 700px;"></div>

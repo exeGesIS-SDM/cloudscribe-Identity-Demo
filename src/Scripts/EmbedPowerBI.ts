@@ -1,53 +1,142 @@
 ﻿import * as pbi from 'powerbi-client';
 declare var powerbi: pbi.service.Service;
 
-// Work in progress - jk 
+$(document).ready(function () {
+    new ReportLoader();
+});
 
-class EmbedInfo {
+
+export class EmbedInfo implements pbi.models.IReportEmbedConfiguration {
     accessToken: string;
     embedUrl: string;
     id: string;
-    type: string = 'report';
-    tokenType: pbi.models.TokenType = pbi.models.TokenType.Embed;
+    type: string                        = 'report';
+    tokenType: pbi.models.TokenType     = pbi.models.TokenType.Embed;
     permissions: pbi.models.Permissions = pbi.models.Permissions.All;
-    viewMode: pbi.models.ViewMode = pbi.models.ViewMode.Edit;
+    viewMode: pbi.models.ViewMode       = pbi.models.ViewMode.Edit;
+
+    // only 3 of above properties come back from the API
+    // but a partial constructor lets the remainder get set to defaults
+    public constructor(init?: Partial<EmbedInfo>) {
+        Object.assign(this, init);
+    }
 }
 
+export class ReportLoader {
 
-export async function getEmbedInfo() {
-    const res = await fetch('/PowerBIEmbed');
-    const { data }: { data: EmbedInfo } = await res.json();
-    return data;
+    private initialised = false;
+
+    constructor() {
+        this.init();
+    }
+
+    private init = (): void => {
+        if (!this.initialised) {
+            this.loadReport();
+            this.initialised = true;
+        }
+    }
+
+    private loadReport = (): void => {
+        let self = this;
+
+        //self.getEmbedInfo()
+        //    .then((data: EmbedInfo) => {
+        //        alert(data.embedUrl)
+        //        self.embedReport(data)
+        //    })
+        //    .catch((error) => {
+        //        console.log(error)
+        //    })
+
+        self.getEmbedInfoAsync()
+            .then(data => self.embedReport(data));
+    }
+
+
+    //private getEmbedInfo() {
+
+    //    $.ajax({
+    //        url: '/PowerBIEmbed',
+    //        // jsonpCallback: 'callback',
+    //        contentType: 'application/javascript',
+    //        dataType: "json",
+    //        success: function (json) {
+    //            let $reportContainer = $('#reportContainer')[0];
+    //            let embedInfo = new EmbedInfo();
+    //            embedInfo.accessToken = json.accessToken;
+    //            embedInfo.embedUrl = json.embedUrl;
+    //            embedInfo.id = json.reportId;
+    //            powerbi.embed($reportContainer, embedInfo);
+    //        },
+    //        error: function () {
+    //            alert("Error");
+    //        }
+    //    });
+    //}
+
+
+    //private getEmbedInfo() {
+
+    //    let embedInfo = new EmbedInfo();
+
+    //    $.ajax({
+    //        url: '/PowerBIEmbed',
+    //        // jsonpCallback: 'callback',
+    //        contentType: 'application/javascript',
+    //        dataType: "json",
+    //        success: function (json) {
+    //            embedInfo.accessToken = json.accessToken;
+    //            embedInfo.embedUrl = json.embedUrl;
+    //            embedInfo.id = json.reportId;
+    //        },
+    //        error: function () {
+    //            alert("Error");
+    //        }
+    //    });
+
+    //    return embedInfo;
+    //}
+
+
+    private getEmbedInfo() {
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                url: '/PowerBIEmbed',
+                // jsonpCallback: 'callback',
+                contentType: 'application/javascript',
+                dataType: "json",
+                success: function (json) {
+                    let embedInfo = new EmbedInfo();
+                    embedInfo.accessToken = json.accessToken;
+                    embedInfo.embedUrl = json.embedUrl;
+                    embedInfo.id = json.reportId;
+                    resolve(embedInfo);
+                },
+                error: function (error) {
+                    reject(error);
+                }
+            });
+        });
+    }
+
+    private embedReport(embedInfo: EmbedInfo) {
+        let $reportContainer = $('#reportContainer')[0];
+        powerbi.embed($reportContainer, embedInfo);
+    }
+
+    // using async fetch call
+    private async getEmbedInfoAsync() {
+        const response = await fetch('/PowerBIEmbed');
+        const data = await response.json();
+
+        if (response.ok) {
+            return new EmbedInfo(data);  // << partial object into constructor
+        }
+        else {
+            // handle the errors
+            const error = new Error('failed to make fetch call to retrieve embed data')
+            return Promise.reject(error)
+        }
+    }
 }
-
-
-let embedInfo = getEmbedInfo();
-
-let conf = async () => await getEmbedInfo();
-
-
-// powerbi.embed(document.querySelector('#report-container'), conf);
-
-
-
-//export class Fetcher {
-//    public static fetchToken(): Promise<string> {
-//        return new Promise<string>(
-//            function (resolve, reject) {
-//                $.getJSON("api/identity/get", function (response) {
-//                    resolve(response);
-//                }).fail(function () {
-//                    resolve(null);
-//                });
-//            }
-//        );
-//    }
-//}
-
-
-//class EmbedConfig extends EmbedInfo {
-//    type: string = 'report';
-//    tokenType: pbi.models.TokenType = pbi.models.TokenType.Embed;
-//    permissions: pbi.models.Permissions = pbi.models.Permissions.All;
-//    viewMode: pbi.models.ViewMode = pbi.models.ViewMode.Edit;
-//}

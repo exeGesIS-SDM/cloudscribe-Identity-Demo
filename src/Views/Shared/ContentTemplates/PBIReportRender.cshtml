@@ -1,0 +1,21 @@
+﻿@model cloudscribe_identity_demo.ViewModels.PBIReportViewModel
+
+@using cloudscribe.SimpleContent.ContentTemplates
+@using cloudscribe.SimpleContent.ContentTemplates.Configuration
+@using Microsoft.AspNetCore.Antiforgery
+@using Newtonsoft.Json;
+@using System.Net
+@inject IAntiforgery antiforgery
+@inject ICkeditorOptionsResolver editorOptionsResolver
+
+@{
+    Layout = "_LayoutEmpty";
+}
+
+@functions{
+
+}
+
+<h1>Outer render view</h1>
+<hr />
+<partial name="ContentTemplates/PBIReportRenderDynamicPartial" model="Model" />

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using cloudscribe_identity_demo.EmbedWeb;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using System.IO;
@@ -54,7 +55,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddMetaWeblogForSimpleContent(config.GetSection("MetaWeblogApiOptions"));
             services.AddSimpleContentRssSyndiction();
 
-
+            services.AddScoped<IPowerBIEmbedder, PowerBIEmbedder>();
 
 
 

@@ -1,0 +1,73 @@
+﻿@model cloudscribe_identity_demo.ViewModels.PBIReportViewModel
+
+@using cloudscribe.SimpleContent.ContentTemplates
+@using cloudscribe.SimpleContent.ContentTemplates.Configuration
+@using Microsoft.AspNetCore.Antiforgery
+@using Newtonsoft.Json;
+@using System.Net
+@inject IAntiforgery antiforgery
+@inject ICkeditorOptionsResolver editorOptionsResolver
+@inject IStringLocalizer<ContentTemplateResources> sr
+@{
+
+    var tokens = antiforgery.GetAndStoreTokens(Context);
+    var ckOptions = await editorOptionsResolver.GetCkeditorOptions();
+
+}
+@functions{
+
+}
+
+<div>
+    <label asp-for="ContentAbove">Content Above</label>
+<textarea asp-for="ContentAbove" class="form-control"
+          data-ckeditor-unobtrusive=""
+          data-ckeditor-config-url="@ckOptions.CustomConfigPath"
+          data-ckeditor-config-language="@ckOptions.LanguageCode"
+          data-ckeditor-config-dropfileuploadurl="@ckOptions.DropFileUrl"
+          data-ckeditor-config-filebrowserurl="@ckOptions.FileBrowseUrl"
+          data-ckeditor-config-imagebrowseurl="@ckOptions.ImageBrowseUrl"></textarea>
+
+    <hr />
+
+    
+    <div>
+        <label for="ReportCode">Report Code (internal corporate code)</label>
+        <input asp-for="ReportCode" class="form-control" title="@sr["Report Code"]" placeholder="@sr["Enter your report code"]" />
+        <span asp-validation-for="ReportCode" class="text-danger"></span>
+    </div>
+
+    <div class="mt-4">
+        <label for="ReportId">Report Id (Guid)</label>
+        <input asp-for="ReportId" class="form-control" title="@sr["Report Id"]" placeholder="@sr["Enter the report id"]" />
+        <span asp-validation-for="ReportId" class="text-danger"></span>
+    </div>
+
+    <div class="mt-4">
+        <label for="GroupId">Group (workspace) Id (Guid)</label>
+        <input asp-for="GroupId" class="form-control" title="@sr["Group Id"]" placeholder="@sr["Enter the group (workspace) id"]" />
+        <span asp-validation-for="GroupId" class="text-danger"></span>
+    </div>
+
+    <div class="mt-4">
+        <label for="PageId">Page (Report Section) Id</label>
+        <input asp-for="PageId" class="form-control" title="@sr["Page Id"]" placeholder="@sr["Enter a page (tab) id  - optional"]" />
+        <span asp-validation-for="PageId" class="text-danger"></span>
+    </div>
+
+    @*<div><p>[The PowerBI report will be rendered automatically here]</p></div>*@
+    
+
+
+    <hr />
+
+    <label asp-for="ContentBelow">Content Below</label>
+<textarea asp-for="ContentBelow" class="form-control"
+          data-ckeditor-unobtrusive=""
+          data-ckeditor-config-url="@ckOptions.CustomConfigPath"
+          data-ckeditor-config-language="@ckOptions.LanguageCode"
+          data-ckeditor-config-dropfileuploadurl="@ckOptions.DropFileUrl"
+          data-ckeditor-config-filebrowserurl="@ckOptions.FileBrowseUrl"
+          data-ckeditor-config-imagebrowseurl="@ckOptions.ImageBrowseUrl"></textarea>
+
+</div>

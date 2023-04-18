@@ -7,7 +7,9 @@ $(document).ready(function () {
 
 
 const displaySettings = {
-
+    navContentPaneEnabled: false,
+    filterPaneEnabled: false,
+    dataPointsEnabled: false, // ?
     panes: {
         filters: {
             visible: false
@@ -18,7 +20,11 @@ const displaySettings = {
         pageNavigation: {
             visible: false
         },
-
+    },
+    bars: {
+        actionBar: {
+            visible: false
+        }
     }
 };
 
